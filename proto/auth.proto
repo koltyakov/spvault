@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "pkg/auth";
+
+package spvault;
+
+service Authenticator {
+  rpc Authenticate (AuthRequest) returns (AuthReply) {}
+}
+
+enum Strategy {
+  addin = 0;
+  adfs = 1;
+  fba = 2;
+  saml = 3;
+  tmg = 4;
+}
+
+message AuthRequest {
+  string site_url = 1;
+  Strategy strategy = 2;
+  string credentials = 3;
+}
+
+message AuthReply {
+  string token = 1;
+  int64 expiration = 2;
+}
