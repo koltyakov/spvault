@@ -18,7 +18,7 @@ func main() {
 		log.Fatalf("failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterVaultServer(s, NewServer())
+	pb.RegisterVaultServer(s, NewVaultServer())
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}

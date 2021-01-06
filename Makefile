@@ -8,10 +8,14 @@ format:
 
 generate:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go
-	protoc -I proto/ proto/spvault.proto --go_out=. --go-grpc_out=. --experimental_allow_proto3_optional
+	protoc -I proto/ proto/spvault.proto --go_out=. --go-grpc_out=. # --experimental_allow_proto3_optional
 
 server:
-	go run ./cmd/auth_server/...
+	go run ./cmd/spvault/...
 
 client:
-	go run ./cmd/auth_client/... -private=$(private)
+	go run ./samples/go_client/... -private=$(private)
+
+# generate-dotnet-client:
+# 	protoc -I proto/ proto/spvault.proto --csharp_out=./samples/dotnet_client --experimental_allow_proto3_optional
+# 	mv ./samples/dotnet_client/Spvault.cs ./samples/dotnet_client/SPVault.cs

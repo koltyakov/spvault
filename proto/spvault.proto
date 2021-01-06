@@ -1,8 +1,9 @@
 syntax = "proto3";
 
-option go_package = "./proto";
+package SPVault;
 
-package spvault;
+option go_package = "./proto";
+option csharp_namespace = "SPVault";
 
 service Vault {
   rpc AuthenticateWithCreds (AuthRequest) returns (AuthReply) {}
@@ -12,32 +13,32 @@ service Vault {
 }
 
 message AuthRequest {
-  string site_url = 1;
+  string siteUrl = 1;
   Strategy strategy = 2;
   string credentials = 3;
 }
 
 message TokenAuthRequest {
-  string reg_token = 1;
+  string regToken = 1;
 }
 
 message AuthReply {
   string token = 1;
-  TokenType token_type = 2;
+  TokenType tokenType = 2;
   int64 expiration = 3;
 }
 
 message RegRequest {
-  AuthRequest auth_request = 1;
-  optional string reg_token = 2;
+  AuthRequest authRequest = 1;
+  string regToken = 2; // optional requires --experimental_allow_proto3_optional which is not completely supported with some gRPC generators like .Net Grpc.Tools
 }
 
 message RegReply {
-  string reg_token = 1;
+  string regToken = 1;
 }
 
 message DeRegRequest {
-  string reg_token = 1;
+  string regToken = 1;
 }
 
 message Empty {}
