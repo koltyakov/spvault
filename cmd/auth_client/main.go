@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"flag"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"time"
@@ -11,12 +13,12 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	address = "localhost:50051"
-)
-
 func main() {
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+	server := flag.String("server", "localhost:50051", "SPVault server address, e.g. server:50051")
+	privatePath := flag.String("private", "./config/private.json", "Path to private JSON file")
+	flag.Parse()
+
+	conn, err := grpc.Dial(*server, grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -26,7 +28,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	dat, err := ioutil.ReadFile("./config/private.json")
+	dat, err := ioutil.ReadFile(*privatePath)
 	if err != nil {
 		log.Fatalf("could not read creds file: %v", err)
 	}
@@ -54,7 +56,7 @@ func main() {
 		log.Fatalf("could not authenticate: %v", err)
 	}
 
-	log.Printf("Token: %s", r.GetToken())
-	log.Printf("Token type: %s", r.GetTokenType())
-	log.Printf("Expires on: %s", time.Unix(r.GetExpiration(), 0))
+	fmt.Printf("Token: %s\n", r.GetToken())
+	fmt.Printf("Token type: %s\n", r.GetTokenType())
+	fmt.Printf("Expires on: %s\n", time.Unix(r.GetExpiration(), 0))
 }

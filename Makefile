@@ -1,3 +1,5 @@
+private="./config/private.json"
+
 install:
 	go get -u ./... && go mod tidy
 
@@ -12,4 +14,4 @@ server:
 	go run ./cmd/auth_server/...
 
 client:
-	go run ./cmd/auth_client/...
+	go run ./cmd/auth_client/... -private=$(private)

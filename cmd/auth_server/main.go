@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"log"
 	"net"
 
@@ -9,12 +10,23 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	port = ":50051"
-)
-
 type server struct {
 	pb.UnsafeAuthenticatorServer
+}
+
+func main() {
+	port := flag.String("port", ":50051", "SPVault server port, e.g. :50051")
+	flag.Parse()
+
+	lis, err := net.Listen("tcp", *port)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterAuthenticatorServer(s, &server{})
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
 
 func (s *server) Authenticate(ctx context.Context, in *pb.AuthRequest) (*pb.AuthReply, error) {
@@ -34,16 +46,4 @@ func (s *server) Authenticate(ctx context.Context, in *pb.AuthRequest) (*pb.Auth
 		Expiration: exp,
 	}
 	return res, nil
-}
-
-func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterAuthenticatorServer(s, &server{})
-	if err := s.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %v", err)
-	}
 }

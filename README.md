@@ -62,4 +62,16 @@ Run client
 make client
 ```
 
-Client output contains auth token/cookie.
+or with a redefined path:
+
+```bash
+make client private="./config/private.addin.json"
+```
+
+Client output contains auth bearer/cookie:
+
+```txt
+Token: eyJ0eXAiOiJ...7OqF7sX2J3JfXKZH2keuqLs_boSDEa47vw
+Token type: Bearer
+Expires on: 2021-01-07 08:24:25 -0600 CST
+```
