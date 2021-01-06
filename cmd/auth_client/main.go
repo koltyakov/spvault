@@ -9,7 +9,7 @@ import (
 	"log"
 	"time"
 
-	pb "github.com/koltyakov/spvault/pkg/auth"
+	pb "github.com/koltyakov/spvault/proto"
 	"google.golang.org/grpc"
 )
 
@@ -23,7 +23,7 @@ func main() {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := pb.NewAuthenticatorClient(conn)
+	c := pb.NewVaultClient(conn)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -47,16 +47,34 @@ func main() {
 		log.Fatalf("can't resolve the strategy, %s", creds.Strategy)
 	}
 
-	r, err := c.Authenticate(ctx, &pb.AuthRequest{
+	authRequest := &pb.AuthRequest{
 		SiteUrl:     creds.SiteURL,
 		Strategy:    pb.Strategy(strategy),
 		Credentials: string(dat),
-	})
+	}
+
+	// Registering an authentication
+	// with registration when authentication can be done via `AuthenticateWithToken`
+	// the client doesn't know any creds in that case
+	reg, err := c.Register(ctx, &pb.RegRequest{AuthRequest: authRequest})
+	if err != nil {
+		log.Fatalf("could not register authentication: %v", err)
+	}
+	fmt.Printf("Registration token: %s\n", reg.GetRegToken())
+
+	// auth, err := c.AuthenticateWithCreds(ctx, authRequest) // auth using creds
+
+	// Getting authentication header/cookie which then can be injected to HTTP requests
+	auth, err := c.AuthenticateWithToken(ctx, &pb.TokenAuthRequest{RegToken: reg.GetRegToken()}) // auth using token
 	if err != nil {
 		log.Fatalf("could not authenticate: %v", err)
 	}
 
-	fmt.Printf("Token: %s\n", r.GetToken())
-	fmt.Printf("Token type: %s\n", r.GetTokenType())
-	fmt.Printf("Expires on: %s\n", time.Unix(r.GetExpiration(), 0))
+	fmt.Printf("Token: %s\n", auth.GetToken())
+	fmt.Printf("Token type: %s\n", auth.GetTokenType())
+	fmt.Printf("Expires on: %s\n", time.Unix(auth.GetExpiration(), 0))
+
+	if _, err := c.DeRegister(ctx, &pb.DeRegRequest{RegToken: reg.GetRegToken()}); err != nil {
+		fmt.Printf("error de-registering authentication: %s\n", err)
+	}
 }

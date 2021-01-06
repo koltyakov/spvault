@@ -6,6 +6,7 @@ replace github.com/koltyakov/spvault => ./
 
 require (
 	github.com/golang/protobuf v1.4.3
+	github.com/google/uuid v1.1.4
 	github.com/koltyakov/gosip v0.0.0-20210106125641-a1603f5f707a
 	golang.org/x/net v0.0.0-20201224014010-6772e930b67b // indirect
 	golang.org/x/sys v0.0.0-20210105210732-16f7687f5001 // indirect

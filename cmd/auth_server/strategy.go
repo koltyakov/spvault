@@ -14,7 +14,7 @@ import (
 
 	// more strateges can be added, the exception is only ntml and ondemand which won't work that way
 
-	pb "github.com/koltyakov/spvault/pkg/auth"
+	pb "github.com/koltyakov/spvault/proto"
 )
 
 func resolveAuthCnfg(r *pb.AuthRequest) (gosip.AuthCnfg, error) {

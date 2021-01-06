@@ -8,7 +8,7 @@ format:
 
 generate:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go
-	protoc -I proto/ proto/auth.proto --go_out=. --go-grpc_out=.
+	protoc -I proto/ proto/spvault.proto --go_out=. --go-grpc_out=. --experimental_allow_proto3_optional
 
 server:
 	go run ./cmd/auth_server/...

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+package spvault;
+
+service Vault {
+  rpc AuthenticateWithCreds (AuthRequest) returns (AuthReply) {}
+  rpc AuthenticateWithToken (TokenAuthRequest) returns (AuthReply) {}
+  rpc Register (RegRequest) returns (RegReply) {}
+  rpc DeRegister (DeRegRequest) returns (Empty) {}
+}
+
+message AuthRequest {
+  string site_url = 1;
+  Strategy strategy = 2;
+  string credentials = 3;
+}
+
+message TokenAuthRequest {
+  string reg_token = 1;
+}
+
+message AuthReply {
+  string token = 1;
+  TokenType token_type = 2;
+  int64 expiration = 3;
+}
+
+message RegRequest {
+  AuthRequest auth_request = 1;
+  optional string reg_token = 2;
+}
+
+message RegReply {
+  string reg_token = 1;
+}
+
+message DeRegRequest {
+  string reg_token = 1;
+}
+
+message Empty {}
+
+enum Strategy {
+  addin = 0;
+  adfs = 1;
+  fba = 2;
+  saml = 3;
+  tmg = 4;
+}
+
+enum TokenType {
+  Bearer = 0;
+  Cookie = 1;
+  Custom = 3;
+}
