@@ -4,7 +4,6 @@ import (
 	"context"
 	"log"
 	"net"
-	"time"
 
 	pb "github.com/koltyakov/spvault/pkg/auth"
 	"google.golang.org/grpc"
@@ -24,15 +23,15 @@ func (s *server) Authenticate(ctx context.Context, in *pb.AuthRequest) (*pb.Auth
 		return nil, err
 	}
 
-	expiration := int64(60 * time.Minute) // ToDo: Expose getting expiration in GetAuth flow
-	token, err := authCnfg.GetAuth()
+	token, exp, err := authCnfg.GetAuth()
 	if err != nil {
 		return nil, err
 	}
 
 	res := &pb.AuthReply{
 		Token:      token,
-		Expiration: expiration,
+		TokenType:  detectTokenType(in),
+		Expiration: exp,
 	}
 	return res, nil
 }

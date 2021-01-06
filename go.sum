@@ -34,6 +34,8 @@ github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+
 github.com/google/uuid v1.1.3/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/koltyakov/gosip v0.0.0-20210105152853-d80843a093c0 h1:76D/PrIB600afrg1iM19mzCPrBm2db7JyS0gtnTBGak=
 github.com/koltyakov/gosip v0.0.0-20210105152853-d80843a093c0/go.mod h1:yJfbAbEO0TfPY7C1sKRefmKyRHWmAs7DyGLoW1ITOZw=
+github.com/koltyakov/gosip v0.0.0-20210106125641-a1603f5f707a h1:mrR3Asdv5aRXjqoDqJXY5Rg4r2a/E0F/rSZbWoKoT2g=
+github.com/koltyakov/gosip v0.0.0-20210106125641-a1603f5f707a/go.mod h1:yJfbAbEO0TfPY7C1sKRefmKyRHWmAs7DyGLoW1ITOZw=
 github.com/patrickmn/go-cache v2.1.0+incompatible h1:HRMgzkcYKYpi3C8ajMPV8OFXaaRUnok+kx1WdO15EQc=
 github.com/patrickmn/go-cache v2.1.0+incompatible/go.mod h1:3Qf8kWWT7OJRJbdiICTKqZju1ZixQ/KpMGzzAfe6+WQ=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=

@@ -12,52 +12,57 @@ import (
 	"github.com/koltyakov/gosip/auth/saml"
 	"github.com/koltyakov/gosip/auth/tmg"
 
+	// more strateges can be added, the exception is only ntml and ondemand which won't work that way
+
 	pb "github.com/koltyakov/spvault/pkg/auth"
 )
 
 func resolveAuthCnfg(r *pb.AuthRequest) (gosip.AuthCnfg, error) {
 	var authCnfg gosip.AuthCnfg
-	c := []byte(r.Credentials)
+	jsonBytes := []byte(r.Credentials)
 
+	// Inject siteURL into config JSON
+	var conf map[string]interface{}
+	if err := json.Unmarshal(jsonBytes, &conf); err != nil {
+		return nil, err
+	}
+	conf["siteUrl"] = r.SiteUrl
+	jsonBytes, _ = json.Marshal(conf)
+
+	// Get demanded auth strategy
 	switch r.Strategy {
 	case pb.Strategy_addin:
-		a := &addin.AuthCnfg{}
-		if err := json.Unmarshal(c, &a); err != nil {
-			return nil, err
-		}
-		a.SiteURL = r.SiteUrl
-		authCnfg = a
+		authCnfg = &addin.AuthCnfg{}
 	case pb.Strategy_adfs:
-		a := &adfs.AuthCnfg{}
-		if err := json.Unmarshal(c, &a); err != nil {
-			return nil, err
-		}
-		a.SiteURL = r.SiteUrl
-		authCnfg = a
+		authCnfg = &adfs.AuthCnfg{}
 	case pb.Strategy_fba:
-		a := &fba.AuthCnfg{}
-		if err := json.Unmarshal(c, &a); err != nil {
-			return nil, err
-		}
-		a.SiteURL = r.SiteUrl
-		authCnfg = a
+		authCnfg = &fba.AuthCnfg{}
 	case pb.Strategy_saml:
-		a := &saml.AuthCnfg{}
-		if err := json.Unmarshal(c, &a); err != nil {
-			return nil, err
-		}
-		a.SiteURL = r.SiteUrl
-		authCnfg = a
+		authCnfg = &saml.AuthCnfg{}
 	case pb.Strategy_tmg:
-		a := &tmg.AuthCnfg{}
-		if err := json.Unmarshal(c, &a); err != nil {
-			return nil, err
-		}
-		a.SiteURL = r.SiteUrl
-		authCnfg = a
+		authCnfg = &tmg.AuthCnfg{}
 	default:
 		return nil, fmt.Errorf("can't resolve auth strategy")
 	}
 
+	if err := authCnfg.ParseConfig(jsonBytes); err != nil {
+		return nil, fmt.Errorf("can't parse the config: %s", err)
+	}
+
 	return authCnfg, nil
+}
+
+func detectTokenType(r *pb.AuthRequest) pb.TokenType {
+	s := map[pb.Strategy]pb.TokenType{
+		pb.Strategy_addin: pb.TokenType_Bearer,
+		pb.Strategy_adfs:  pb.TokenType_Cookie,
+		pb.Strategy_fba:   pb.TokenType_Cookie,
+		pb.Strategy_saml:  pb.TokenType_Cookie,
+		pb.Strategy_tmg:   pb.TokenType_Cookie,
+	}
+	t, ok := s[r.Strategy]
+	if !ok {
+		return pb.TokenType_Custom
+	}
+	return t
 }

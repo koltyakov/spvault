@@ -55,4 +55,6 @@ func main() {
 	}
 
 	log.Printf("Token: %s", r.GetToken())
+	log.Printf("Token type: %s", r.GetTokenType())
+	log.Printf("Expires on: %s", time.Unix(r.GetExpiration(), 0))
 }
