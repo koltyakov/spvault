@@ -12,7 +12,7 @@ namespace SP.Client
         {
             var server = args[0]; // "localhost:50051"
             var token = args[1];
-            
+
             var channel = new Channel(server, ChannelCredentials.Insecure);
             var client = new Vault.VaultClient(channel);
 
@@ -36,7 +36,7 @@ namespace SP.Client
                 Console.WriteLine($"Unexpected error calling gRPC");
                 throw;
             }
-            
+
             await channel.ShutdownAsync();
         }
     }

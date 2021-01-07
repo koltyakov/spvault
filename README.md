@@ -65,7 +65,9 @@ make client-go
 or with a redefined path:
 
 ```bash
-make client-go private="./config/private.addin.json"
+make client-go private="./config/private.addin.json" scenario=register
+make client-go scenario=auth:token token=
+make client-dotnet token=
 ```
 
 Client output contains auth bearer/cookie:
@@ -92,3 +94,46 @@ make client-dotnet token=32118847-bf0f-4822-9f2a-1bad30077f06
 ```
 
 Where token value is the one copied from `make client-go scenario=register` output.
+
+## Demo
+
+![Demo](./assets/demo.gif)
+
+What's happening here:
+
+1\. Register an authentication:
+
+```bash
+make client-go private="./config/private.addin.json" scenario=register
+```
+
+`./config/private.addin.json` contains authentication parameters for an Addin:
+
+```json
+{
+  "siteUrl": "https://contoso.sharepoint.com/sites/site",
+  "strategy": "addin",
+  "clientId": "924ca7f3-535e-4e12-b0c8-4fec9622107e",
+  "clientSecret": "CgnihMbRphqRKXlK0...3t0BF0M7XLlZ/0QCgw="
+}
+```
+
+Vault server caches the authentication and returns registration ID, its internal identity per the registration.
+
+2\. Go client authenticates with a token:
+
+```bash
+make client-go scenario=auth:token token=bf2a33a9-16d3-451f-8dbd-edde15541cb7
+```
+
+3\. DotNet Core client authenticates with a token:
+
+```bash
+make client-dotnet token=bf2a33a9-16d3-451f-8dbd-edde15541cb7
+```
+
+DotNet client authentiation visually takes longer, that's mostly because `dotnet run` is used under the hood and therefore compilation penalty.
+
+4\. Received Bearer tokens can be used in Authentication header to access SharePoint API resources.
+
+A client, which was provided with registration token should also know SharePoint site URL.
