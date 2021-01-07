@@ -52,20 +52,20 @@ make generate
 make server
 ```
 
-### Run test client
+### Run test client (Go)
 
 Create `./config/private.json` corresponding to [gosip auth format](https://go.spflow.com/auth/overview). Add and extra field named "strategy". Use one of the possible strategies: addin, adfs, fba, saml, tmg.
 
 Run client
 
 ```bash
-make client
+make client-go
 ```
 
 or with a redefined path:
 
 ```bash
-make client private="./config/private.addin.json"
+make client-go private="./config/private.addin.json"
 ```
 
 Client output contains auth bearer/cookie:
@@ -84,3 +84,11 @@ Register authentication | ```make client-go scenario=register```
 Auth with creds         | ```make client-go scenario=auth:creds```
 Auth with token         | ```make client-go scenario=auth:token token=9375a36f-049a-41af-aacc-2caac9e20882```
 De-Register auth        | ```make client-go scenario=deregister token=9375a36f-049a-41af-aacc-2caac9e20882```
+
+### Run test client (.Net Core)
+
+```bash
+make client-dotnet token=32118847-bf0f-4822-9f2a-1bad30077f06
+```
+
+Where token value is the one copied from `make client-go scenario=register` output.
