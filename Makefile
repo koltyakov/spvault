@@ -30,6 +30,9 @@ client-dotnet:
 client-nodejs:
 	cd ./sample/clients/nodejs && npm run client -- $(server)$(port) $(token)
 
+client-python:
+	cd ./sample/clients/python && python main.py $(server)$(port) $(token)
+
 client-cli:
 	grpcurl -d '{"regToken": "$(token)"}' \
 		-plaintext -emit-defaults -import-path ./proto -proto spvault.proto \
