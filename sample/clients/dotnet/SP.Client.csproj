@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>SP.Client</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+    <PackageReference Include="Grpc" Version="2.34.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.34.0" />
     <PackageReference Include="Grpc.Tools" Version="2.34.0">
       <PrivateAssets>all</PrivateAssets>
@@ -16,11 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf
-      Include="..\..\proto\spvault.proto"
-      GrpcServices="Client"
-      Link="Protos\spvault.proto"
-    />
+    <Protobuf Include="..\..\..\proto\spvault.proto" GrpcServices="Client" Link="Protos\spvault.proto" />
   </ItemGroup>
 
 </Project>

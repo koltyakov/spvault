@@ -75,3 +75,12 @@ Token: eyJ0eXAiOiJ...7OqF7sX2J3JfXKZH2keuqLs_boSDEa47vw
 Token type: Bearer
 Expires on: 2021-01-07 08:24:25 -0600 CST
 ```
+
+#### Scenarios
+
+Scenario | Command
+---------|--------
+Register authentication | ```make client-go scenario=register```
+Auth with creds         | ```make client-go scenario=auth:creds```
+Auth with token         | ```make client-go scenario=auth:token token=9375a36f-049a-41af-aacc-2caac9e20882```
+De-Register auth        | ```make client-go scenario=deregister token=9375a36f-049a-41af-aacc-2caac9e20882```

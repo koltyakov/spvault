@@ -1,4 +1,8 @@
-private="./config/private.json"
+private=./config/private.json
+server=localhost
+port=:50051
+scenario=auth:creds
+token=
 
 install:
 	go get -u ./... && go mod tidy
@@ -10,12 +14,15 @@ generate:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go
 	protoc -I proto/ proto/spvault.proto --go_out=. --go-grpc_out=. # --experimental_allow_proto3_optional
 
-server:
-	go run ./cmd/spvault/...
-
-client:
-	go run ./samples/go_client/... -private=$(private)
-
 # generate-dotnet-client:
 # 	protoc -I proto/ proto/spvault.proto --csharp_out=./samples/dotnet_client --experimental_allow_proto3_optional
 # 	mv ./samples/dotnet_client/Spvault.cs ./samples/dotnet_client/SPVault.cs
+
+server:
+	go run ./cmd/spvault/... port=$(port)
+
+client-go:
+	go run ./sample/clients/go/... -server=$(server)$(port) -private=$(private) -scenario=$(scenario) -token=$(token)
+
+client-dotnet:
+	dotnet run --project ./sample/clients/dotnet $(server)$(port) $(token)
