@@ -26,3 +26,6 @@ client-go:
 
 client-dotnet:
 	dotnet run --project ./sample/clients/dotnet $(server)$(port) $(token)
+
+client-nodejs:
+	cd ./sample/clients/nodejs && npm run client -- $(server)$(port) $(token)

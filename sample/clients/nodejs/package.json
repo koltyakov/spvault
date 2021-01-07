@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate": "sh scripts/generate.sh",
+    "client": "node index.js"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.2.2",
+    "@types/google-protobuf": "^3.7.4",
+    "grpc-tools": "^1.10.0",
+    "grpc_tools_node_protoc_ts": "^4.1.2"
+  }
 }
