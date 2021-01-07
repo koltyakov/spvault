@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package SPVault;
+package spvault;
 
 option go_package = "./proto";
 option csharp_namespace = "SPVault";

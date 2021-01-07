@@ -33,7 +33,7 @@ func NewVaultClient(cc grpc.ClientConnInterface) VaultClient {
 
 func (c *vaultClient) AuthenticateWithCreds(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthReply, error) {
 	out := new(AuthReply)
-	err := c.cc.Invoke(ctx, "/SPVault.Vault/AuthenticateWithCreds", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/spvault.Vault/AuthenticateWithCreds", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *vaultClient) AuthenticateWithCreds(ctx context.Context, in *AuthRequest
 
 func (c *vaultClient) AuthenticateWithToken(ctx context.Context, in *TokenAuthRequest, opts ...grpc.CallOption) (*AuthReply, error) {
 	out := new(AuthReply)
-	err := c.cc.Invoke(ctx, "/SPVault.Vault/AuthenticateWithToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/spvault.Vault/AuthenticateWithToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *vaultClient) AuthenticateWithToken(ctx context.Context, in *TokenAuthRe
 
 func (c *vaultClient) Register(ctx context.Context, in *RegRequest, opts ...grpc.CallOption) (*RegReply, error) {
 	out := new(RegReply)
-	err := c.cc.Invoke(ctx, "/SPVault.Vault/Register", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/spvault.Vault/Register", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *vaultClient) Register(ctx context.Context, in *RegRequest, opts ...grpc
 
 func (c *vaultClient) DeRegister(ctx context.Context, in *DeRegRequest, opts ...grpc.CallOption) (*Empty, error) {
 	out := new(Empty)
-	err := c.cc.Invoke(ctx, "/SPVault.Vault/DeRegister", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/spvault.Vault/DeRegister", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +117,7 @@ func _Vault_AuthenticateWithCreds_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/SPVault.Vault/AuthenticateWithCreds",
+		FullMethod: "/spvault.Vault/AuthenticateWithCreds",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VaultServer).AuthenticateWithCreds(ctx, req.(*AuthRequest))
@@ -135,7 +135,7 @@ func _Vault_AuthenticateWithToken_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/SPVault.Vault/AuthenticateWithToken",
+		FullMethod: "/spvault.Vault/AuthenticateWithToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VaultServer).AuthenticateWithToken(ctx, req.(*TokenAuthRequest))
@@ -153,7 +153,7 @@ func _Vault_Register_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/SPVault.Vault/Register",
+		FullMethod: "/spvault.Vault/Register",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VaultServer).Register(ctx, req.(*RegRequest))
@@ -171,7 +171,7 @@ func _Vault_DeRegister_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/SPVault.Vault/DeRegister",
+		FullMethod: "/spvault.Vault/DeRegister",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(VaultServer).DeRegister(ctx, req.(*DeRegRequest))
@@ -180,7 +180,7 @@ func _Vault_DeRegister_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 var _Vault_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "SPVault.Vault",
+	ServiceName: "spvault.Vault",
 	HandlerType: (*VaultServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

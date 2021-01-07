@@ -7,6 +7,7 @@ import (
 
 	pb "github.com/koltyakov/spvault/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 	}
 	s := grpc.NewServer()
 	pb.RegisterVaultServer(s, NewVaultServer())
+	reflection.Register(s)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
