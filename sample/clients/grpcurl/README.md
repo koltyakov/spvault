@@ -2,6 +2,8 @@
 
 [gRPCurl project page](https://github.com/fullstorydev/grpcurl)
 
+Can be used in `bash` or `PowerShell` scripting and for debug purposes.
+
 ## Install
 
 On a mac:
