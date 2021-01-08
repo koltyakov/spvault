@@ -19,26 +19,26 @@ message AuthRequest {
 }
 
 message TokenAuthRequest {
-  string regToken = 1;
+  string vaultToken = 1;
 }
 
 message AuthReply {
-  string token = 1;
+  string authToken = 1;
   TokenType tokenType = 2;
   int64 expiration = 3;
 }
 
 message RegRequest {
   AuthRequest authRequest = 1;
-  string regToken = 2; // optional requires --experimental_allow_proto3_optional which is not completely supported with some gRPC generators like .Net Grpc.Tools
+  string vaultToken = 2; // optional requires --experimental_allow_proto3_optional which is not completely supported with some gRPC generators like .Net Grpc.Tools
 }
 
 message RegReply {
-  string regToken = 1;
+  string vaultToken = 1;
 }
 
 message DeRegRequest {
-  string regToken = 1;
+  string vaultToken = 1;
 }
 
 message Empty {}

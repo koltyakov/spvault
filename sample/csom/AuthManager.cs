@@ -32,11 +32,11 @@ namespace SP.Client
                 switch (authReply.TokenType)
                 {
                     case TokenType.Bearer:
-                        e.WebRequestExecutor.RequestHeaders["Authorization"] = "Bearer " + authReply.Token;
+                        e.WebRequestExecutor.RequestHeaders["Authorization"] = "Bearer " + authReply.AuthToken;
                         break;
                     case TokenType.Cookie:
                     {
-                        e.WebRequestExecutor.RequestHeaders["Cookie"] = authReply.Token;
+                        e.WebRequestExecutor.RequestHeaders["Cookie"] = authReply.AuthToken;
                         e.WebRequestExecutor.RequestHeaders.Add("Origin", web.OriginalString);
                         break;
                     }
@@ -58,7 +58,7 @@ namespace SP.Client
                 return authReply;
             }
             
-            authReply = await client.AuthenticateWithTokenAsync(new TokenAuthRequest { RegToken = vaultToken });
+            authReply = await client.AuthenticateWithTokenAsync(new TokenAuthRequest { VaultToken = vaultToken });
             AddTokenToCache(vaultToken, authReply);
 
             return authReply;

@@ -59,11 +59,14 @@ func main() {
 		// Registering an authentication
 		// with registration when authentication can be done via `AuthenticateWithToken`
 		// the client doesn't know any creds in that case
-		reg, err := c.Register(ctx, &pb.RegRequest{AuthRequest: authRequest})
+		reg, err := c.Register(ctx, &pb.RegRequest{
+			AuthRequest: authRequest,
+			VaultToken:  *token,
+		})
 		if err != nil {
 			log.Fatalf("could not register authentication: %v", err)
 		}
-		fmt.Printf("Registration token: %s\n", reg.GetRegToken())
+		fmt.Printf("Registration token: %s\n", reg.GetVaultToken())
 	}
 
 	if *scenario == "auth:token" {
@@ -72,12 +75,12 @@ func main() {
 		}
 
 		// Getting authentication header/cookie which then can be injected to HTTP requests
-		auth, err := c.AuthenticateWithToken(ctx, &pb.TokenAuthRequest{RegToken: *token}) // auth using token
+		auth, err := c.AuthenticateWithToken(ctx, &pb.TokenAuthRequest{VaultToken: *token}) // auth using token
 		if err != nil {
 			log.Fatalf("could not authenticate: %v", err)
 		}
 
-		fmt.Printf("Token: %s\n", auth.GetToken())
+		fmt.Printf("Token: %s\n", auth.GetAuthToken())
 		fmt.Printf("Token type: %s\n", auth.GetTokenType())
 		fmt.Printf("Expires on: %s\n", time.Unix(auth.GetExpiration(), 0))
 	}
@@ -89,7 +92,7 @@ func main() {
 			log.Fatalf("could not authenticate: %v", err)
 		}
 
-		fmt.Printf("Token: %s\n", auth.GetToken())
+		fmt.Printf("Token: %s\n", auth.GetAuthToken())
 		fmt.Printf("Token type: %s\n", auth.GetTokenType())
 		fmt.Printf("Expires on: %s\n", time.Unix(auth.GetExpiration(), 0))
 	}
@@ -100,7 +103,7 @@ func main() {
 		}
 
 		// Deregister authentication
-		if _, err := c.DeRegister(ctx, &pb.DeRegRequest{RegToken: *token}); err != nil {
+		if _, err := c.DeRegister(ctx, &pb.DeRegRequest{VaultToken: *token}); err != nil {
 			fmt.Printf("error de-registering authentication: %s\n", err)
 		}
 	}

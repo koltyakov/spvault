@@ -10,19 +10,19 @@ namespace SP.Client
     {
         private static async Task Main(string[] args)
         {
-            var server = args[0]; // "localhost:50051"
-            var token = args[1];
+            var vaultServer = args[0]; // "localhost:50051"
+            var vaultToken = args[1];
 
-            var channel = new Channel(server, ChannelCredentials.Insecure);
+            var channel = new Channel(vaultServer, ChannelCredentials.Insecure);
             var client = new Vault.VaultClient(channel);
 
             try {
-                var reply = await client.AuthenticateWithTokenAsync(new TokenAuthRequest { RegToken = token });
+                var reply = await client.AuthenticateWithTokenAsync(new TokenAuthRequest { VaultToken = vaultToken });
 
                 var exriration = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
                 exriration = exriration.AddSeconds(reply.Expiration).ToLocalTime();
 
-                Console.WriteLine("Token: " + reply.Token);
+                Console.WriteLine("Token: " + reply.AuthToken);
                 Console.WriteLine("Token type: " + reply.TokenType);
                 Console.WriteLine("Expires on: " + exriration);
             }

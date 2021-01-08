@@ -2,7 +2,7 @@
 
 > SharePoint Authentication Vault gPRC server
 
-__Project status: WIP, early PoC__
+__Project status: WIP, PoC__
 
 ## What the project intends solving
 

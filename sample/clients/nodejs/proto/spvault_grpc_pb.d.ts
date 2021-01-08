@@ -1,4 +1,4 @@
-// package: SPVault
+// package: spvault
 // file: spvault.proto
 
 /* tslint:disable */
@@ -15,7 +15,7 @@ interface IVaultService extends grpc.ServiceDefinition<grpc.UntypedServiceImplem
 }
 
 interface IVaultService_IAuthenticateWithCreds extends grpc.MethodDefinition<spvault_pb.AuthRequest, spvault_pb.AuthReply> {
-    path: "/SPVault.Vault/AuthenticateWithCreds";
+    path: "/spvault.Vault/AuthenticateWithCreds";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<spvault_pb.AuthRequest>;
@@ -24,7 +24,7 @@ interface IVaultService_IAuthenticateWithCreds extends grpc.MethodDefinition<spv
     responseDeserialize: grpc.deserialize<spvault_pb.AuthReply>;
 }
 interface IVaultService_IAuthenticateWithToken extends grpc.MethodDefinition<spvault_pb.TokenAuthRequest, spvault_pb.AuthReply> {
-    path: "/SPVault.Vault/AuthenticateWithToken";
+    path: "/spvault.Vault/AuthenticateWithToken";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<spvault_pb.TokenAuthRequest>;
@@ -33,7 +33,7 @@ interface IVaultService_IAuthenticateWithToken extends grpc.MethodDefinition<spv
     responseDeserialize: grpc.deserialize<spvault_pb.AuthReply>;
 }
 interface IVaultService_IRegister extends grpc.MethodDefinition<spvault_pb.RegRequest, spvault_pb.RegReply> {
-    path: "/SPVault.Vault/Register";
+    path: "/spvault.Vault/Register";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<spvault_pb.RegRequest>;
@@ -42,7 +42,7 @@ interface IVaultService_IRegister extends grpc.MethodDefinition<spvault_pb.RegRe
     responseDeserialize: grpc.deserialize<spvault_pb.RegReply>;
 }
 interface IVaultService_IDeRegister extends grpc.MethodDefinition<spvault_pb.DeRegRequest, spvault_pb.Empty> {
-    path: "/SPVault.Vault/DeRegister";
+    path: "/spvault.Vault/DeRegister";
     requestStream: false;
     responseStream: false;
     requestSerialize: grpc.serialize<spvault_pb.DeRegRequest>;

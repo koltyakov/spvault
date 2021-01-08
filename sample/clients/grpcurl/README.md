@@ -23,7 +23,7 @@ go install github.com/fullstorydev/grpcurl/cmd/grpcurl
 
 ```bash
 grpcurl \
-  -d '{"regToken": "e23c1bb2-1334-4bba-8961-38090905f726"}' \
+  -d '{"vaultToken": "e23c1bb2-1334-4bba-8961-38090905f726"}' \
   -plaintext -emit-defaults localhost:50051 \
   spvault.Vault/AuthenticateWithToken
 ```
@@ -32,7 +32,7 @@ or with `-import-path ./proto -proto spvault.proto` if API reflection is not ena
 
 ```bash
 grpcurl \
-  -d '{"regToken": "e23c1bb2-1334-4bba-8961-38090905f726"}' \
+  -d '{"vaultToken": "e23c1bb2-1334-4bba-8961-38090905f726"}' \
   -plaintext -emit-defaults \
   -import-path ./proto -proto spvault.proto \
   localhost:50051 spvault.Vault/AuthenticateWithToken

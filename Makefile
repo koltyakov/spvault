@@ -2,7 +2,7 @@ private=./config/private.json
 server=localhost
 port=:50051
 scenario=auth:creds
-token=
+token=73f4fa39-03a5-46f9-b7a1-07c5104bd339
 siteUrl=
 
 install:
@@ -38,6 +38,6 @@ client-python:
 	cd ./sample/clients/python && python main.py $(server)$(port) $(token)
 
 client-cli:
-	grpcurl -d '{"regToken": "$(token)"}' \
+	grpcurl -d '{"vaultToken": "$(token)"}' \
 		-plaintext -emit-defaults -import-path ./proto -proto spvault.proto \
 		$(server)$(port) spvault.Vault/AuthenticateWithToken

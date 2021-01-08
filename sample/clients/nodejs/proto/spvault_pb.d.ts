@@ -1,4 +1,4 @@
-// package: SPVault
+// package: spvault
 // file: spvault.proto
 
 /* tslint:disable */
@@ -36,8 +36,8 @@ export namespace AuthRequest {
 }
 
 export class TokenAuthRequest extends jspb.Message { 
-    getRegtoken(): string;
-    setRegtoken(value: string): TokenAuthRequest;
+    getVaulttoken(): string;
+    setVaulttoken(value: string): TokenAuthRequest;
 
 
     serializeBinary(): Uint8Array;
@@ -52,13 +52,13 @@ export class TokenAuthRequest extends jspb.Message {
 
 export namespace TokenAuthRequest {
     export type AsObject = {
-        regtoken: string,
+        vaulttoken: string,
     }
 }
 
 export class AuthReply extends jspb.Message { 
-    getToken(): string;
-    setToken(value: string): AuthReply;
+    getAuthtoken(): string;
+    setAuthtoken(value: string): AuthReply;
 
     getTokentype(): TokenType;
     setTokentype(value: TokenType): AuthReply;
@@ -79,7 +79,7 @@ export class AuthReply extends jspb.Message {
 
 export namespace AuthReply {
     export type AsObject = {
-        token: string,
+        authtoken: string,
         tokentype: TokenType,
         expiration: number,
     }
@@ -92,8 +92,8 @@ export class RegRequest extends jspb.Message {
     getAuthrequest(): AuthRequest | undefined;
     setAuthrequest(value?: AuthRequest): RegRequest;
 
-    getRegtoken(): string;
-    setRegtoken(value: string): RegRequest;
+    getVaulttoken(): string;
+    setVaulttoken(value: string): RegRequest;
 
 
     serializeBinary(): Uint8Array;
@@ -109,13 +109,13 @@ export class RegRequest extends jspb.Message {
 export namespace RegRequest {
     export type AsObject = {
         authrequest?: AuthRequest.AsObject,
-        regtoken: string,
+        vaulttoken: string,
     }
 }
 
 export class RegReply extends jspb.Message { 
-    getRegtoken(): string;
-    setRegtoken(value: string): RegReply;
+    getVaulttoken(): string;
+    setVaulttoken(value: string): RegReply;
 
 
     serializeBinary(): Uint8Array;
@@ -130,13 +130,13 @@ export class RegReply extends jspb.Message {
 
 export namespace RegReply {
     export type AsObject = {
-        regtoken: string,
+        vaulttoken: string,
     }
 }
 
 export class DeRegRequest extends jspb.Message { 
-    getRegtoken(): string;
-    setRegtoken(value: string): DeRegRequest;
+    getVaulttoken(): string;
+    setVaulttoken(value: string): DeRegRequest;
 
 
     serializeBinary(): Uint8Array;
@@ -151,7 +151,7 @@ export class DeRegRequest extends jspb.Message {
 
 export namespace DeRegRequest {
     export type AsObject = {
-        regtoken: string,
+        vaulttoken: string,
     }
 }
 

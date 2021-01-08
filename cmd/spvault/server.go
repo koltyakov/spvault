@@ -25,22 +25,22 @@ func (s *VaultServer) AuthenticateWithCreds(ctx context.Context, in *pb.AuthRequ
 		return nil, err
 	}
 
-	token, exp, err := authCnfg.GetAuth()
+	authToken, expiration, err := authCnfg.GetAuth()
 	if err != nil {
 		return nil, err
 	}
 
 	res := &pb.AuthReply{
-		Token:      token,
+		AuthToken:  authToken,
 		TokenType:  detectTokenType(in),
-		Expiration: exp,
+		Expiration: expiration,
 	}
 	return res, nil
 }
 
 // AuthenticateWithToken authenticates using registration token (previously uploaded credentials stored in memory)
 func (s *VaultServer) AuthenticateWithToken(ctx context.Context, in *pb.TokenAuthRequest) (*pb.AuthReply, error) {
-	reg, ok := s.regs.Load(in.RegToken)
+	reg, ok := s.regs.Load(in.VaultToken)
 	if !ok {
 		return nil, fmt.Errorf("no registration found")
 	}
@@ -53,19 +53,19 @@ func (s *VaultServer) AuthenticateWithToken(ctx context.Context, in *pb.TokenAut
 
 // Register registers authentication in server's memory
 func (s *VaultServer) Register(ctx context.Context, in *pb.RegRequest) (*pb.RegReply, error) {
-	if len(in.RegToken) == 0 {
-		regToken := uuid.New().String()
-		in.RegToken = regToken
+	if len(in.VaultToken) == 0 {
+		vaultToken := uuid.New().String()
+		in.VaultToken = vaultToken
 	}
-	s.regs.Store(in.RegToken, in.AuthRequest)
+	s.regs.Store(in.VaultToken, in.AuthRequest)
 	res := &pb.RegReply{
-		RegToken: in.RegToken,
+		VaultToken: in.VaultToken,
 	}
 	return res, nil
 }
 
 // DeRegister removes authentication registeration from server's memory
 func (s *VaultServer) DeRegister(ctx context.Context, in *pb.DeRegRequest) (*pb.Empty, error) {
-	s.regs.Delete(in.RegToken)
+	s.regs.Delete(in.VaultToken)
 	return &pb.Empty{}, nil
 }

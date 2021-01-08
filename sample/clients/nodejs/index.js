@@ -11,7 +11,7 @@ const token = process.argv[3] || 'unknown';
 const client = new VaultClient(address, grpc.credentials.createInsecure());
 
 const tokenRequest = new TokenAuthRequest();
-tokenRequest.setRegtoken(token);
+tokenRequest.setVaulttoken(token);
 
 client.authenticateWithToken(tokenRequest, (err, resp) => {
   if (err) {
@@ -19,7 +19,7 @@ client.authenticateWithToken(tokenRequest, (err, resp) => {
     process.exit(1);
   }
 
-  console.log(`Token: ${resp.getToken()}`);
+  console.log(`Token: ${resp.getAuthtoken()}`);
   console.log(`Token type: ${['Bearer', 'Cookie', 'Custom'][resp.getTokentype()]}`);
   console.log(`Expiration: ${new Date(resp.getExpiration() * 1000)}`);
 });

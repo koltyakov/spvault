@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z\007./proto\252\002\007SPVault',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rspvault.proto\x12\x07spvault\"X\n\x0b\x41uthRequest\x12\x0f\n\x07siteUrl\x18\x01 \x01(\t\x12#\n\x08strategy\x18\x02 \x01(\x0e\x32\x11.spvault.Strategy\x12\x13\n\x0b\x63redentials\x18\x03 \x01(\t\"$\n\x10TokenAuthRequest\x12\x10\n\x08regToken\x18\x01 \x01(\t\"U\n\tAuthReply\x12\r\n\x05token\x18\x01 \x01(\t\x12%\n\ttokenType\x18\x02 \x01(\x0e\x32\x12.spvault.TokenType\x12\x12\n\nexpiration\x18\x03 \x01(\x03\"I\n\nRegRequest\x12)\n\x0b\x61uthRequest\x18\x01 \x01(\x0b\x32\x14.spvault.AuthRequest\x12\x10\n\x08regToken\x18\x02 \x01(\t\"\x1c\n\x08RegReply\x12\x10\n\x08regToken\x18\x01 \x01(\t\" \n\x0c\x44\x65RegRequest\x12\x10\n\x08regToken\x18\x01 \x01(\t\"\x07\n\x05\x45mpty*;\n\x08Strategy\x12\t\n\x05\x61\x64\x64in\x10\x00\x12\x08\n\x04\x61\x64\x66s\x10\x01\x12\x07\n\x03\x66\x62\x61\x10\x02\x12\x08\n\x04saml\x10\x03\x12\x07\n\x03tmg\x10\x04*/\n\tTokenType\x12\n\n\x06\x42\x65\x61rer\x10\x00\x12\n\n\x06\x43ookie\x10\x01\x12\n\n\x06\x43ustom\x10\x03\x32\x83\x02\n\x05Vault\x12\x43\n\x15\x41uthenticateWithCreds\x12\x14.spvault.AuthRequest\x1a\x12.spvault.AuthReply\"\x00\x12H\n\x15\x41uthenticateWithToken\x12\x19.spvault.TokenAuthRequest\x1a\x12.spvault.AuthReply\"\x00\x12\x34\n\x08Register\x12\x13.spvault.RegRequest\x1a\x11.spvault.RegReply\"\x00\x12\x35\n\nDeRegister\x12\x15.spvault.DeRegRequest\x1a\x0e.spvault.Empty\"\x00\x42\x13Z\x07./proto\xaa\x02\x07SPVaultb\x06proto3'
+  serialized_pb=b'\n\rspvault.proto\x12\x07spvault\"X\n\x0b\x41uthRequest\x12\x0f\n\x07siteUrl\x18\x01 \x01(\t\x12#\n\x08strategy\x18\x02 \x01(\x0e\x32\x11.spvault.Strategy\x12\x13\n\x0b\x63redentials\x18\x03 \x01(\t\"&\n\x10TokenAuthRequest\x12\x12\n\nvaultToken\x18\x01 \x01(\t\"Y\n\tAuthReply\x12\x11\n\tauthToken\x18\x01 \x01(\t\x12%\n\ttokenType\x18\x02 \x01(\x0e\x32\x12.spvault.TokenType\x12\x12\n\nexpiration\x18\x03 \x01(\x03\"K\n\nRegRequest\x12)\n\x0b\x61uthRequest\x18\x01 \x01(\x0b\x32\x14.spvault.AuthRequest\x12\x12\n\nvaultToken\x18\x02 \x01(\t\"\x1e\n\x08RegReply\x12\x12\n\nvaultToken\x18\x01 \x01(\t\"\"\n\x0c\x44\x65RegRequest\x12\x12\n\nvaultToken\x18\x01 \x01(\t\"\x07\n\x05\x45mpty*;\n\x08Strategy\x12\t\n\x05\x61\x64\x64in\x10\x00\x12\x08\n\x04\x61\x64\x66s\x10\x01\x12\x07\n\x03\x66\x62\x61\x10\x02\x12\x08\n\x04saml\x10\x03\x12\x07\n\x03tmg\x10\x04*/\n\tTokenType\x12\n\n\x06\x42\x65\x61rer\x10\x00\x12\n\n\x06\x43ookie\x10\x01\x12\n\n\x06\x43ustom\x10\x03\x32\x83\x02\n\x05Vault\x12\x43\n\x15\x41uthenticateWithCreds\x12\x14.spvault.AuthRequest\x1a\x12.spvault.AuthReply\"\x00\x12H\n\x15\x41uthenticateWithToken\x12\x19.spvault.TokenAuthRequest\x1a\x12.spvault.AuthReply\"\x00\x12\x34\n\x08Register\x12\x13.spvault.RegRequest\x1a\x11.spvault.RegReply\"\x00\x12\x35\n\nDeRegister\x12\x15.spvault.DeRegRequest\x1a\x0e.spvault.Empty\"\x00\x42\x13Z\x07./proto\xaa\x02\x07SPVaultb\x06proto3'
 )
 
 _STRATEGY = _descriptor.EnumDescriptor(
@@ -58,8 +58,8 @@ _STRATEGY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=389,
-  serialized_end=448,
+  serialized_start=401,
+  serialized_end=460,
 )
 _sym_db.RegisterEnumDescriptor(_STRATEGY)
 
@@ -89,8 +89,8 @@ _TOKENTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=450,
-  serialized_end=497,
+  serialized_start=462,
+  serialized_end=509,
 )
 _sym_db.RegisterEnumDescriptor(_TOKENTYPE)
 
@@ -161,7 +161,7 @@ _TOKENAUTHREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='regToken', full_name='spvault.TokenAuthRequest.regToken', index=0,
+      name='vaultToken', full_name='spvault.TokenAuthRequest.vaultToken', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -180,7 +180,7 @@ _TOKENAUTHREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=116,
-  serialized_end=152,
+  serialized_end=154,
 )
 
 
@@ -193,7 +193,7 @@ _AUTHREPLY = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='spvault.AuthReply.token', index=0,
+      name='authToken', full_name='spvault.AuthReply.authToken', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -225,8 +225,8 @@ _AUTHREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=154,
-  serialized_end=239,
+  serialized_start=156,
+  serialized_end=245,
 )
 
 
@@ -246,7 +246,7 @@ _REGREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='regToken', full_name='spvault.RegRequest.regToken', index=1,
+      name='vaultToken', full_name='spvault.RegRequest.vaultToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -264,8 +264,8 @@ _REGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=241,
-  serialized_end=314,
+  serialized_start=247,
+  serialized_end=322,
 )
 
 
@@ -278,7 +278,7 @@ _REGREPLY = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='regToken', full_name='spvault.RegReply.regToken', index=0,
+      name='vaultToken', full_name='spvault.RegReply.vaultToken', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -296,8 +296,8 @@ _REGREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=316,
-  serialized_end=344,
+  serialized_start=324,
+  serialized_end=354,
 )
 
 
@@ -310,7 +310,7 @@ _DEREGREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='regToken', full_name='spvault.DeRegRequest.regToken', index=0,
+      name='vaultToken', full_name='spvault.DeRegRequest.vaultToken', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -328,8 +328,8 @@ _DEREGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=346,
-  serialized_end=378,
+  serialized_start=356,
+  serialized_end=390,
 )
 
 
@@ -353,8 +353,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=380,
-  serialized_end=387,
+  serialized_start=392,
+  serialized_end=399,
 )
 
 _AUTHREQUEST.fields_by_name['strategy'].enum_type = _STRATEGY
@@ -430,8 +430,8 @@ _VAULT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=500,
-  serialized_end=759,
+  serialized_start=512,
+  serialized_end=771,
   methods=[
   _descriptor.MethodDescriptor(
     name='AuthenticateWithCreds',
