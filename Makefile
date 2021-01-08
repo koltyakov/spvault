@@ -3,6 +3,7 @@ server=localhost
 port=:50051
 scenario=auth:creds
 token=
+siteUrl=
 
 install:
 	go get -u ./... && go mod tidy
@@ -26,6 +27,9 @@ client-go:
 
 client-dotnet:
 	dotnet run --project ./sample/clients/dotnet $(server)$(port) $(token)
+
+client-csom:
+	dotnet run --project ./sample/csom $(server)$(port) $(token) $(siteUrl)
 
 client-nodejs:
 	cd ./sample/clients/nodejs && npm run client -- $(server)$(port) $(token)
