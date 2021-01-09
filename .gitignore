@@ -1,10 +1,9 @@
 # Package specific
-config/private.*
-config/*/private.*
-config/certs/*.*
+config/
 bin/
 tmp/
 debug/
+certs/
 
 # Binaries for programs and plugins
 *.exe

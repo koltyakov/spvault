@@ -46,6 +46,12 @@ Verify `$GOPATH/bin` is in `PATH` environment variable (`export PATH=$PATH:$GOPA
 make generate
 ```
 
+### Create sertificates
+
+```bash
+
+```
+
 ### Run a server
 
 ```bash

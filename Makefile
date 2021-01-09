@@ -15,12 +15,14 @@ generate:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go
 	protoc -I proto/ proto/spvault.proto --go_out=. --go-grpc_out=. # --experimental_allow_proto3_optional
 
-# generate-dotnet-client:
-# 	protoc -I proto/ proto/spvault.proto --csharp_out=./samples/dotnet_client --experimental_allow_proto3_optional
-# 	mv ./samples/dotnet_client/Spvault.cs ./samples/dotnet_client/SPVault.cs
+certs:
+	chmod +x ./certs.sh && ./certs.sh
 
 server:
 	go run ./cmd/spvault/... port=$(port)
+
+server-tls: certs
+	go run ./cmd/spvault/... port=$(port) cert=./certs/service.pem key=./certs/service.key
 
 client-go:
 	go run ./sample/clients/go/... -server=$(server)$(port) -private=$(private) -scenario=$(scenario) -token=$(token)
