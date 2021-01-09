@@ -49,6 +49,8 @@ enum Strategy {
   fba = 2;
   saml = 3;
   tmg = 4;
+  azurecert = 5;
+  azurecreds = 6;
 }
 
 enum TokenType {

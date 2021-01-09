@@ -6,6 +6,8 @@ import (
 
 	"github.com/koltyakov/gosip"
 
+	"github.com/koltyakov/gosip-sandbox/strategies/azurecert"
+	"github.com/koltyakov/gosip-sandbox/strategies/azurecreds"
 	"github.com/koltyakov/gosip/auth/addin"
 	"github.com/koltyakov/gosip/auth/adfs"
 	"github.com/koltyakov/gosip/auth/fba"
@@ -41,6 +43,10 @@ func resolveAuthCnfg(r *pb.AuthRequest) (gosip.AuthCnfg, error) {
 		authCnfg = &saml.AuthCnfg{}
 	case pb.Strategy_tmg:
 		authCnfg = &tmg.AuthCnfg{}
+	case pb.Strategy_azurecert:
+		authCnfg = &azurecert.AuthCnfg{}
+	case pb.Strategy_azurecreds:
+		authCnfg = &azurecreds.AuthCnfg{}
 	default:
 		return nil, fmt.Errorf("can't resolve auth strategy")
 	}
@@ -54,11 +60,13 @@ func resolveAuthCnfg(r *pb.AuthRequest) (gosip.AuthCnfg, error) {
 
 func detectTokenType(r *pb.AuthRequest) pb.TokenType {
 	s := map[pb.Strategy]pb.TokenType{
-		pb.Strategy_addin: pb.TokenType_Bearer,
-		pb.Strategy_adfs:  pb.TokenType_Cookie,
-		pb.Strategy_fba:   pb.TokenType_Cookie,
-		pb.Strategy_saml:  pb.TokenType_Cookie,
-		pb.Strategy_tmg:   pb.TokenType_Cookie,
+		pb.Strategy_addin:      pb.TokenType_Bearer,
+		pb.Strategy_adfs:       pb.TokenType_Cookie,
+		pb.Strategy_fba:        pb.TokenType_Cookie,
+		pb.Strategy_saml:       pb.TokenType_Cookie,
+		pb.Strategy_tmg:        pb.TokenType_Cookie,
+		pb.Strategy_azurecert:  pb.TokenType_Bearer,
+		pb.Strategy_azurecreds: pb.TokenType_Bearer,
 	}
 	t, ok := s[r.Strategy]
 	if !ok {
