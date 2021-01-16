@@ -42,7 +42,10 @@ client-python:
 client-ruby:
 	cd ./sample/clients/ruby && bundle exec ./main.rb $(server)$(port) $(token)
 
-client-cli:
+client-grpcurl:
 	grpcurl -d '{"vaultToken": "$(token)"}' \
 		-plaintext -emit-defaults -import-path ./proto -proto spvault.proto \
 		$(server)$(port) spvault.Vault/AuthenticateWithToken
+
+client-posh:
+	./sample/clients/posh/Client.ps1 -vaultServer $(server)$(port) -vaultToken $(token) -siteUrl $(siteUrl)
