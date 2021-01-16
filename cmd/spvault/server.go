@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"sync"
 
 	"github.com/google/uuid"
@@ -20,6 +21,8 @@ func NewVaultServer() *VaultServer { return &VaultServer{} }
 
 // AuthenticateWithCreds authenticates using credentials
 func (s *VaultServer) AuthenticateWithCreds(ctx context.Context, in *pb.AuthRequest) (*pb.AuthReply, error) {
+	log.Printf("Auth %s using %s", in.SiteUrl, in.Strategy)
+
 	authCnfg, err := resolveAuthCnfg(in)
 	if err != nil {
 		return nil, err
@@ -40,6 +43,7 @@ func (s *VaultServer) AuthenticateWithCreds(ctx context.Context, in *pb.AuthRequ
 
 // AuthenticateWithToken authenticates using registration token (previously uploaded credentials stored in memory)
 func (s *VaultServer) AuthenticateWithToken(ctx context.Context, in *pb.TokenAuthRequest) (*pb.AuthReply, error) {
+	log.Printf("Auth with token %s", in.VaultToken)
 	reg, ok := s.regs.Load(in.VaultToken)
 	if !ok {
 		return nil, fmt.Errorf("no registration found")
@@ -57,6 +61,7 @@ func (s *VaultServer) Register(ctx context.Context, in *pb.RegRequest) (*pb.RegR
 		vaultToken := uuid.New().String()
 		in.VaultToken = vaultToken
 	}
+	log.Printf("Register vault token %s", in.VaultToken)
 	s.regs.Store(in.VaultToken, in.AuthRequest)
 	res := &pb.RegReply{
 		VaultToken: in.VaultToken,
@@ -66,6 +71,7 @@ func (s *VaultServer) Register(ctx context.Context, in *pb.RegRequest) (*pb.RegR
 
 // DeRegister removes authentication registeration from server's memory
 func (s *VaultServer) DeRegister(ctx context.Context, in *pb.DeRegRequest) (*pb.Empty, error) {
+	log.Printf("De-register vault token %s", in.VaultToken)
 	s.regs.Delete(in.VaultToken)
 	return &pb.Empty{}, nil
 }
