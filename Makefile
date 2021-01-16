@@ -39,6 +39,9 @@ client-nodejs:
 client-python:
 	cd ./sample/clients/python && python main.py $(server)$(port) $(token)
 
+client-ruby:
+	cd ./sample/clients/ruby && bundle exec ./main.rb $(server)$(port) $(token)
+
 client-cli:
 	grpcurl -d '{"vaultToken": "$(token)"}' \
 		-plaintext -emit-defaults -import-path ./proto -proto spvault.proto \
