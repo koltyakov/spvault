@@ -49,3 +49,6 @@ client-grpcurl:
 
 client-posh:
 	./sample/clients/posh/Client.ps1 -vaultServer $(server)$(port) -vaultToken $(token) -siteUrl $(siteUrl)
+
+client-bash:
+	./sample/clients/bash/client.sh $(server)$(port) $(token) $(siteUrl)
